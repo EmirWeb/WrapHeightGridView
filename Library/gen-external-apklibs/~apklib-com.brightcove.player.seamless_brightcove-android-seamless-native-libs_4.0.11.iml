@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="GEN_FOLDER_RELATIVE_PATH_APT" value="/com.brightcove.player.seamless_brightcove-android-seamless-native-libs_4.0.11/gen" />
+        <option name="GEN_FOLDER_RELATIVE_PATH_AIDL" value="/com.brightcove.player.seamless_brightcove-android-seamless-native-libs_4.0.11/gen" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/com.brightcove.player.seamless_brightcove-android-seamless-native-libs_4.0.11/AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/com.brightcove.player.seamless_brightcove-android-seamless-native-libs_4.0.11/res" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/com.brightcove.player.seamless_brightcove-android-seamless-native-libs_4.0.11/assets" />
+        <option name="LIBS_FOLDER_RELATIVE_PATH" value="/com.brightcove.player.seamless_brightcove-android-seamless-native-libs_4.0.11/libs" />
+        <option name="LIBRARY_PROJECT" value="true" />
+        <resOverlayFolders>
+          <path>/com.brightcove.player.seamless_brightcove-android-seamless-native-libs_4.0.11/res-overlay</path>
+        </resOverlayFolders>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/com.brightcove.player.seamless_brightcove-android-seamless-native-libs_4.0.11">
+      <sourceFolder url="file://$MODULE_DIR$/com.brightcove.player.seamless_brightcove-android-seamless-native-libs_4.0.11/gen" isTestSource="false" generated="true" />
+    </content>
+    <orderEntry type="jdk" jdkName="Maven Android API 19 Platform (1)" jdkType="Android SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+

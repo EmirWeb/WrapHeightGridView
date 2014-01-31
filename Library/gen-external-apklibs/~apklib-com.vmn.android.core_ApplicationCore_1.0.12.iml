@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="GEN_FOLDER_RELATIVE_PATH_APT" value="/com.vmn.android.core_ApplicationCore_1.0.12/gen" />
+        <option name="GEN_FOLDER_RELATIVE_PATH_AIDL" value="/com.vmn.android.core_ApplicationCore_1.0.12/gen" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/com.vmn.android.core_ApplicationCore_1.0.12/AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/com.vmn.android.core_ApplicationCore_1.0.12/res" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/com.vmn.android.core_ApplicationCore_1.0.12/assets" />
+        <option name="LIBS_FOLDER_RELATIVE_PATH" value="/com.vmn.android.core_ApplicationCore_1.0.12/libs" />
+        <option name="LIBRARY_PROJECT" value="true" />
+        <resOverlayFolders>
+          <path>/com.vmn.android.core_ApplicationCore_1.0.12/res-overlay</path>
+        </resOverlayFolders>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/com.vmn.android.core_ApplicationCore_1.0.12">
+      <sourceFolder url="file://$MODULE_DIR$/com.vmn.android.core_ApplicationCore_1.0.12/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/com.vmn.android.core_ApplicationCore_1.0.12/gen" isTestSource="false" generated="true" />
+    </content>
+    <orderEntry type="jdk" jdkName="Maven Android API 16 Platform" jdkType="Android SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.viacom.android:android:4.3.0.1" level="project" />
+    <orderEntry type="module" module-name="~apklib-com.xtremelabs.facebook_facebook-android-api_3.5.0-XLFix" />
+    <orderEntry type="library" name="Maven: com.google.android:support-v4:r18" level="project" />
+    <orderEntry type="library" name="Maven: com.xtremelabs:xl-rest-android:3.0.7" level="project" />
+    <orderEntry type="library" name="Maven: com.xtremelabs:xl-threading-android:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.xtremelabs:xl-logger-android:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.xtremelabs:xl-network-android:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.xtremelabs:xl-image-utils-android:1.4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.twitter4j:twitter4j-core:3.0.5" level="project" />
+    <orderEntry type="module" module-name="~apklib-com.vmn.android_vmn-video-player-sdk_1.32.7" />
+    <orderEntry type="library" name="Maven: com.brightcove.player:brightcove-android-sdk:4.0.11" level="project" />
+    <orderEntry type="library" name="Maven: tv.freewheel:AdManager:5.7.2" level="project" />
+    <orderEntry type="library" name="Maven: com.brightcove.freewheel:brightcove-freewheel-plugin:4.0.11" level="project" />
+    <orderEntry type="library" name="Maven: com.adobe.adms:adobe-adms:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: com.brightcove.omniture:brightcove-omniture-plugin:4.0.11" level="project" />
+    <orderEntry type="library" name="Maven: com.visualon:voOSBasePlayer:3.8.2" level="project" />
+    <orderEntry type="library" name="Maven: com.visualon:voOSDataSource:3.8.2" level="project" />
+    <orderEntry type="library" name="Maven: com.visualon:voOSEngine:3.8.2" level="project" />
+    <orderEntry type="library" name="Maven: com.visualon:voOSUtils:3.8.2" level="project" />
+    <orderEntry type="library" name="Maven: com.brightcove.player.seamless:brightcove-android-seamless:4.0.11" level="project" />
+    <orderEntry type="module" module-name="~apklib-com.brightcove.player.seamless_brightcove-android-seamless-native-libs_4.0.11" />
+    <orderEntry type="library" name="Maven: com.akamai.analytics:akamai-android-CSMA-plugin:1.0.0.0" level="project" />
+    <orderEntry type="module" module-name="~apklib-com.vmn.android_tveauthcomponent_2.4.0.0" />
+    <orderEntry type="library" name="Maven: com.adobe.adobepass:accessenabler:1.7.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.4" level="project" />
+    <orderEntry type="library" name="Maven: com.nostra13.universalimageloader:universal-image-loader:1.8.6" level="project" />
+    <orderEntry type="module" module-name="~apklib-com.vmn.android_bento-android_1.1.1" />
+    <orderEntry type="library" name="Maven: com.comscore.analytics:comscore:2.1307.02" level="project" />
+    <orderEntry type="library" name="Maven: de.keyboardsurfer.android.widget:crouton:javadoc:1.8.1" level="project" />
+    <orderEntry type="library" name="Maven: de.keyboardsurfer.android.widget:crouton:1.8.1" level="project" />
+    <orderEntry type="module" module-name="~apklib-com.vmn.android_SM4_1.6.1" />
+    <orderEntry type="module" module-name="~apklib-com.xtremelabs_xl-vertical_scroll-android_1.4.3" />
+    <orderEntry type="module" module-name="~apklib-com.tvplus_tvplus-sdk_2.0.28-v2" />
+    <orderEntry type="library" name="Maven: com.crashlytics.android:crashlytics:1.1.9" level="project" />
+    <orderEntry type="library" name="Maven: com.xtremelabs:asmack-android:17-0.8.3" level="project" />
+    <orderEntry type="library" name="Maven: com.google.ads:conversionTracking:1.1.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.android:android:4.1.1.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: commons-logging:commons-logging:1.1.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.httpcomponents:httpclient:4.0.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.httpcomponents:httpcore:4.0.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: commons-codec:commons-codec:1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.khronos:opengl-api:gl1.1-android-2.1_r1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: xerces:xmlParserAPIs:2.6.2" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: xpp3:xpp3:1.1.4c" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.json:json:20080701" level="project" />
+  </component>
+</module>
+
