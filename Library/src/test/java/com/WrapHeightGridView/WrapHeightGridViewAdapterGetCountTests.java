@@ -84,13 +84,43 @@ public class WrapHeightGridViewAdapterGetCountTests {
     }
 
     @Test
-    public void getCountWithRemainderRow(){
+      public void getCountWithRemainderRow(){
         final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
         final Adapter adapter = new CountBaseAdapter(4);
         wrapHeightGridViewAdapter.setColumns(5);
         wrapHeightGridViewAdapter.setAdapter(adapter);
         final int count = wrapHeightGridViewAdapter.getCount();
         assertThat(count).isEqualTo(1);
+    }
+
+    @Test
+    public void getCountWithNegativeColumnCount(){
+        final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
+        final Adapter adapter = new CountBaseAdapter(4);
+        wrapHeightGridViewAdapter.setColumns(-1);
+        wrapHeightGridViewAdapter.setAdapter(adapter);
+        final int count = wrapHeightGridViewAdapter.getCount();
+        assertThat(count).isEqualTo(4);
+    }
+
+    @Test
+    public void getCountWithNegativeAdapterCount(){
+        final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
+        final Adapter adapter = new CountBaseAdapter(-1);
+        wrapHeightGridViewAdapter.setColumns(1);
+        wrapHeightGridViewAdapter.setAdapter(adapter);
+        final int count = wrapHeightGridViewAdapter.getCount();
+        assertThat(count).isEqualTo(0);
+    }
+
+    @Test
+    public void getCountWithNegativeZeroColumn(){
+        final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
+        final Adapter adapter = new CountBaseAdapter(5);
+        wrapHeightGridViewAdapter.setColumns(0);
+        wrapHeightGridViewAdapter.setAdapter(adapter);
+        final int count = wrapHeightGridViewAdapter.getCount();
+        assertThat(count).isEqualTo(5);
     }
 
 }
