@@ -1,11 +1,16 @@
 package com.WrapHeightGridView;
 
+import android.content.Context;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+
+import java.util.ArrayList;
+import java.util.Queue;
 
 /**
  * Created by Emir Hasanbegovic on 2014-01-31.
@@ -15,6 +20,7 @@ public class WrapHeightGridViewAdapter extends BaseAdapter {
     private static final int DEFAULT_COLUMN_COUNT = 1;
 
     private Adapter mAdapter;
+    private TypesRecycler mTypesRecycler;
     private int mColumns = DEFAULT_COLUMN_COUNT;
 
 
@@ -61,12 +67,9 @@ public class WrapHeightGridViewAdapter extends BaseAdapter {
             return null;
         }
 
-        LinearLayout linearLayout = (LinearLayout) view;
-
-        if (view == null) {
-            final LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-            linearLayout = (LinearLayout) layoutInflater.inflate(R.layout.list_item_row, null);
-        }
+        final Context context = viewGroup.getContext();
+        final LinearLayout linearLayout = getLinearLayout(view, context);
+        final ViewHolder viewHolder = (ViewHolder) linearLayout.getTag();
 
         final int count = mAdapter.getCount();
         final int childCount = linearLayout.getChildCount();
@@ -75,6 +78,7 @@ public class WrapHeightGridViewAdapter extends BaseAdapter {
         // Recycle Views
         for (int index = 0; index < mColumns; index++) {
             final int viewPosition = convertedPosition + index;
+            final int type = mAdapter.getItemViewType(viewPosition);
 
             if (index < childCount) {
 
@@ -88,10 +92,17 @@ public class WrapHeightGridViewAdapter extends BaseAdapter {
                         child.setVisibility(View.VISIBLE);
                     }
 
-                    final View convertedView = mAdapter.getView(viewPosition, child, viewGroup);
-                    if (convertedView != view) {
-                        linearLayout.removeViewAt(index);
-                        linearLayout.addView(convertedView, index);
+                    final int oldType = viewHolder.getType(index);
+                    final boolean isSameType = oldType == type;
+
+                    if (isSameType){
+                        final View convertedView = mAdapter.getView(viewPosition, child, viewGroup);
+                        if (convertedView != view) {
+                            linearLayout.removeViewAt(index);
+                            linearLayout.addView(convertedView, index);
+                        }
+                    } else {
+                        final View viewToRecycle = getViewToRecycle(type);
                     }
                 } else {
                     child.setVisibility(View.GONE);
@@ -104,5 +115,33 @@ public class WrapHeightGridViewAdapter extends BaseAdapter {
         }
 
         return linearLayout;
+    }
+
+    private LinearLayout getLinearLayout(final View view, final Context context) {
+        if (view == null) {
+            final LayoutInflater layoutInflater = LayoutInflater.from(context);
+            final LinearLayout linearLayout = (LinearLayout) layoutInflater.inflate(R.layout.list_item_row, null);
+            final ViewHolder viewHolder = new ViewHolder(mColumns);
+            linearLayout.setTag(viewHolder);
+        }
+
+        return (LinearLayout) view;
+    }
+
+    private static class ViewHolder {
+        public static final int EMPTY = -1;
+        private int[] mViewTypes;
+
+        public ViewHolder(final int columns){
+            mViewTypes = new int[columns];
+
+            for (int index = 0; index < mViewTypes.length; index++){
+                mViewTypes[index] = EMPTY;
+            }
+        }
+
+        public int getType(final int index){
+            return mViewTypes[index];
+        }
     }
 }
