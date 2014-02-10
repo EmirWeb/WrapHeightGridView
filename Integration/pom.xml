@@ -1,11 +1,11 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.WrapHeightGridView</groupId>
-    <artifactId>WrapHeightGridView</artifactId>
-    <version>0.0.2</version>
-    <packaging>apklib</packaging>
+    <groupId>com.WrapHeightGridViewIntegration</groupId>
+    <artifactId>com.WrapHeightGridViewIntegration</artifactId>
+    <version>0.0.1</version>
+    <packaging>apk</packaging>
 
     <repositories>
         <repository>
@@ -41,6 +41,12 @@
             <artifactId>fest-android</artifactId>
             <version>1.0.7</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.WrapHeightGridView</groupId>
+            <artifactId>WrapHeightGridView</artifactId>
+            <version>0.0.2</version>
+            <type>apklib</type>
         </dependency>
     </dependencies>
 
