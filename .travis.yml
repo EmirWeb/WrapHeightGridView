@@ -10,4 +10,7 @@ before_install:
     - ( cd maven-android-sdk-deployer ; mvn install -P 4.3 )
 
 script: 
-    - ./build_ci.sh
+    - cd Library
+    - mvn clean install
+    - cd ../Integration
+    - mvn clean test
