@@ -15,8 +15,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
  * Created by Emir Hasanbegovic on 2014-01-31.
  */
 @RunWith(RobolectricTestRunner.class)
-public class WrapHeightGridViewAdapterGetCountTests {
-
+public class WrapHeightGridViewAdapterGetCountTest {
 
     class CountBaseAdapter extends BaseAdapter{
 

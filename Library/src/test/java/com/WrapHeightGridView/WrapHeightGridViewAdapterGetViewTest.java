@@ -5,8 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,12 +19,11 @@ import static org.fest.assertions.api.Assertions.assertThat;
  * Created by Emir Hasanbegovic on 2014-01-31.
  */
 @RunWith(RobolectricTestRunner.class)
-public class WrapHeightGridViewAdapterTypesTests {
+public class WrapHeightGridViewAdapterGetViewTest {
 
     class RowAdapter extends BaseAdapter {
 
 
-        private static final int TYPE_COUNT = 3;
         private final int mCount;
 
         public RowAdapter(final int count) {
@@ -49,33 +46,13 @@ public class WrapHeightGridViewAdapterTypesTests {
         }
 
         @Override
-        public int getItemViewType(int position) {
-            return position % TYPE_COUNT;
-        }
-
-        @Override
-        public int getViewTypeCount() {
-            return TYPE_COUNT;
-        }
-
-        @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            final int type = getItemViewType(i);
             if (view == null) {
                 final Context context = Robolectric.getShadowApplication().getApplicationContext();
-                switch (type) {
-                    case 0:
-                        view = new TextView(context);
-                        break;
-                    case 1:
-                        view = new ImageView(context);
-                        break;
-                    case 2:
-                    default:
-                        view = new Button(context);
-                }
+                view = new TextView(context);
             }
-            view.setTag(type);
+
+            view.setTag(i);
 
             return view;
         }
@@ -117,42 +94,67 @@ public class WrapHeightGridViewAdapterTypesTests {
         final View view = wrapHeightGridViewAdapter.getView(0, null, mViewGroup);
         assertThat(view).isInstanceOf(LinearLayout.class);
         final LinearLayout linearLayout = (LinearLayout) view;
+
+        final int childCount = linearLayout.getChildCount();
+        assertThat(childCount).isEqualTo(1);
+
         final View child = linearLayout.getChildAt(0);
-        final int type = (Integer) child.getTag();
-        assertThat(type).isEqualTo(0);
-        assertThat(child).isInstanceOf(TextView.class);
+        final int position = (Integer) child.getTag();
+        assertThat(position).isEqualTo(0);
     }
 
     @Test
-    public void getViewWithOneRow() {
+    public void getViewWithOneFullRow() {
         final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
-        final Adapter adapter = new RowAdapter(4);
+        final Adapter adapter = new RowAdapter(2);
         wrapHeightGridViewAdapter.setAdapter(adapter);
-        wrapHeightGridViewAdapter.setColumns(4);
+        wrapHeightGridViewAdapter.setColumns(2);
         final View view = wrapHeightGridViewAdapter.getView(0, null, mViewGroup);
         assertThat(view).isInstanceOf(LinearLayout.class);
         final LinearLayout linearLayout = (LinearLayout) view;
 
-        View child = linearLayout.getChildAt(0);
-        int type = (Integer) child.getTag();
-        assertThat(type).isEqualTo(0);
-        assertThat(child).isInstanceOf(TextView.class);
-
-        child = linearLayout.getChildAt(1);
-        type = (Integer) child.getTag();
-        assertThat(type).isEqualTo(1);
-        assertThat(child).isInstanceOf(ImageView.class);
-
-        child = linearLayout.getChildAt(2);
-        type = (Integer) child.getTag();
-        assertThat(type).isEqualTo(2);
-        assertThat(child).isInstanceOf(Button.class);
-
-        child = linearLayout.getChildAt(3);
-        type = (Integer) child.getTag();
-        assertThat(type).isEqualTo(0);
-        assertThat(child).isInstanceOf(TextView.class);
-
+        final int childCount = linearLayout.getChildCount();
+        assertThat(childCount).isEqualTo(2);
     }
 
+    @Test
+    public void getViewWithRemainderRow() {
+        final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
+        final Adapter adapter = new RowAdapter(3);
+        wrapHeightGridViewAdapter.setAdapter(adapter);
+        wrapHeightGridViewAdapter.setColumns(2);
+        final View row0 = wrapHeightGridViewAdapter.getView(0, null, mViewGroup);
+        final View row1 = wrapHeightGridViewAdapter.getView(1, null, mViewGroup);
+
+        assertThat(row0).isInstanceOf(LinearLayout.class);
+        assertThat(row1).isInstanceOf(LinearLayout.class);
+
+        final LinearLayout linearLayout0 = (LinearLayout) row0;
+        final LinearLayout linearLayout1 = (LinearLayout) row1;
+
+        final int childCount0 = linearLayout0.getChildCount();
+        assertThat(childCount0).isEqualTo(2);
+
+        final int childCount1 = linearLayout1.getChildCount();
+        assertThat(childCount1).isEqualTo(1);
+    }
+
+    @Test
+    public void getViewWithRecycleRow() {
+        final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
+        final Adapter adapter = new RowAdapter(3);
+        wrapHeightGridViewAdapter.setAdapter(adapter);
+        wrapHeightGridViewAdapter.setColumns(2);
+        final View row0 = wrapHeightGridViewAdapter.getView(0, null, mViewGroup);
+        final View row1 = wrapHeightGridViewAdapter.getView(1, row0, mViewGroup);
+
+        assertThat(row1).isInstanceOf(LinearLayout.class);
+
+        final LinearLayout linearLayout = (LinearLayout) row1;
+
+
+        final int visibleChildCount = getNumberOfVisibleViews(linearLayout);
+        assertThat(visibleChildCount).isEqualTo(1);
+
+    }
 }
