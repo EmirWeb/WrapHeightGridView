@@ -22,8 +22,8 @@ public class WrapHeightGridViewActivity extends Activity {
         final IntegrationAdapter integrationAdapter = new IntegrationAdapter();
 
         final WrapHeightGridView wrapHeightGridView = (WrapHeightGridView) findViewById(R.id.wrap_height_grid_view);
-        wrapHeightGridView.setAdapter(integrationAdapter);
         wrapHeightGridView.setColumns(COLUMNS);
+        wrapHeightGridView.setAdapter(integrationAdapter);
 
     }
 

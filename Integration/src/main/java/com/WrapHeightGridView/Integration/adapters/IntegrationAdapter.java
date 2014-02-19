@@ -16,7 +16,7 @@ import com.WrapHeightGridView.Integration.R;
  */
 public class IntegrationAdapter extends BaseAdapter {
 
-    private static final int COUNT = 30;
+    private static final int COUNT = 2000 ;
     private static final int TYPE_COUNT = 3;
 
     private enum Types {

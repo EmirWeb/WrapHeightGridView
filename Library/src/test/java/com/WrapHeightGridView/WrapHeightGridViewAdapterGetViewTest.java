@@ -58,24 +58,6 @@ public class WrapHeightGridViewAdapterGetViewTest {
         }
     }
 
-    public int getNumberOfVisibleViews(final ViewGroup viewGroup) {
-        if (viewGroup == null) {
-            return 0;
-        }
-
-        int visibleCount = 0;
-        final int childCount = viewGroup.getChildCount();
-        for (int index = 0; index < childCount; index++) {
-            final View view = viewGroup.getChildAt(index);
-            if (view.getVisibility() == View.VISIBLE) {
-                visibleCount++;
-            }
-        }
-
-        return visibleCount;
-
-    }
-
     final ViewGroup mViewGroup = new ViewGroup(Robolectric.getShadowApplication().getApplicationContext()) {
 
         @Override
@@ -145,16 +127,14 @@ public class WrapHeightGridViewAdapterGetViewTest {
         final Adapter adapter = new RowAdapter(3);
         wrapHeightGridViewAdapter.setAdapter(adapter);
         wrapHeightGridViewAdapter.setColumns(2);
-        final View row0 = wrapHeightGridViewAdapter.getView(0, null, mViewGroup);
-        final View row1 = wrapHeightGridViewAdapter.getView(1, row0, mViewGroup);
+        View row1 = wrapHeightGridViewAdapter.getView(1, null, mViewGroup);
+        row1 = wrapHeightGridViewAdapter.getView(1, row1, mViewGroup);
 
         assertThat(row1).isInstanceOf(LinearLayout.class);
 
         final LinearLayout linearLayout = (LinearLayout) row1;
-
-
-        final int visibleChildCount = getNumberOfVisibleViews(linearLayout);
-        assertThat(visibleChildCount).isEqualTo(1);
+        final int childCount = linearLayout.getChildCount();
+        assertThat(childCount).isEqualTo(1);
 
     }
 }

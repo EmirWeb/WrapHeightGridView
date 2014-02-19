@@ -16,7 +16,6 @@ public class WrapHeightGridViewAdapter extends BaseAdapter {
     private static final int DEFAULT_COLUMN_COUNT = 1;
 
     private Adapter mAdapter;
-    private TypesRecycler mTypesRecycler;
     private int mColumns = DEFAULT_COLUMN_COUNT;
 
     public void setAdapter(final Adapter adapter) {
@@ -54,6 +53,56 @@ public class WrapHeightGridViewAdapter extends BaseAdapter {
         return position;
     }
 
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mAdapter == null) {
+            return 0;
+        }
+
+        final int startPosition = position * mColumns;
+        int type = 0;
+
+        for (int index = startPosition; index < startPosition + mColumns; index++) {
+            final int columnIndex = index - startPosition;
+            final int typeCount = getAdapterViewTypeCount();
+            final int typeAtIndex = getTypeAtIndex(index);
+            type += typeAtIndex * Math.pow(typeCount, columnIndex);
+        }
+
+        return type;
+    }
+
+    private int getAdapterViewTypeCount() {
+        if (mAdapter == null) {
+            return 1;
+        }
+
+        return mAdapter.getViewTypeCount() + 1;
+    }
+
+    private int getTypeAtIndex(final int index) {
+        final int typeCount = getAdapterViewTypeCount();
+        final int count = mAdapter.getCount();
+
+        if (index < count) {
+            return mAdapter.getItemViewType(index);
+        }
+
+        return typeCount - 1;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        if (mAdapter == null) {
+            return 1;
+        }
+
+        final int viewTypeCount = getAdapterViewTypeCount();
+        final double typeCount = Math.pow(viewTypeCount, mColumns);
+        return (int) typeCount;
+    }
+
     @Override
     public View getView(final int position, final View view, final ViewGroup viewGroup) {
         final boolean isValidRecycle = view == null || view instanceof LinearLayout;
@@ -62,58 +111,24 @@ public class WrapHeightGridViewAdapter extends BaseAdapter {
             return null;
         }
 
+        final boolean isRecycled = view != null;
         final Context context = viewGroup.getContext();
         final LinearLayout linearLayout = getLinearLayout(view, context);
-        final ViewHolder viewHolder = (ViewHolder) linearLayout.getTag();
 
         final int count = mAdapter.getCount();
-        final int childCount = linearLayout.getChildCount();
         final int convertedPosition = position * mColumns;
 
-        // Recycle Views
-        for (int index = 0; index < mColumns; index++) {
+        for (int index = 0; index + convertedPosition < count && index < mColumns; index++) {
             final int viewPosition = convertedPosition + index;
-            final int type = mAdapter.getItemViewType(viewPosition);
 
-            if (index < childCount) {
-
+            if (isRecycled) {
                 final View child = linearLayout.getChildAt(index);
-
-                if (viewPosition < count) {
-                    final int visibility = child.getVisibility();
-                    final boolean isVisible = visibility == View.VISIBLE;
-
-                    if (!isVisible) {
-                        child.setVisibility(View.VISIBLE);
-                    }
-
-                    final int oldType = viewHolder.getType(index);
-                    final boolean isSameType = oldType == type;
-
-                    if (isSameType) {
-                        final View convertedView = mAdapter.getView(viewPosition, child, viewGroup);
-                        if (convertedView != view) {
-                            linearLayout.removeViewAt(index);
-                            linearLayout.addView(convertedView, index);
-                        }
-                    } else {
-                        if (mTypesRecycler == null) {
-                            final int typeCount = getViewTypeCount();
-                            mTypesRecycler = new TypesRecycler(typeCount);
-                        }
-
-                        final View recycledView = mTypesRecycler.getView(type);
-                        mTypesRecycler.recycle(child, oldType); 
-                        linearLayout.removeViewAt(index);
-
-                        final View convertedView = mAdapter.getView(viewPosition, recycledView, viewGroup);
-                        linearLayout.addView(convertedView, index);
-                    }
-
-                } else {
-                    child.setVisibility(View.GONE);
+                final View convertedView = mAdapter.getView(viewPosition, child, viewGroup);
+                if (convertedView != view) {
+                    linearLayout.removeViewAt(index);
+                    linearLayout.addView(convertedView, index);
                 }
-            } else if (viewPosition < count) {
+            } else {
                 final View convertedView = mAdapter.getView(viewPosition, null, viewGroup);
                 convertedView.setVisibility(View.VISIBLE);
                 linearLayout.addView(convertedView, index);
@@ -127,28 +142,10 @@ public class WrapHeightGridViewAdapter extends BaseAdapter {
         if (view == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(context);
             final LinearLayout linearLayout = (LinearLayout) layoutInflater.inflate(R.layout.list_item_row, null);
-            final ViewHolder viewHolder = new ViewHolder(mColumns);
-            linearLayout.setTag(viewHolder);
             return linearLayout;
         }
 
         return (LinearLayout) view;
     }
 
-    private static class ViewHolder {
-        public static final int EMPTY = -1;
-        private int[] mViewTypes;
-
-        public ViewHolder(final int columns) {
-            mViewTypes = new int[columns];
-
-            for (int index = 0; index < mViewTypes.length; index++) {
-                mViewTypes[index] = EMPTY;
-            }
-        }
-
-        public int getType(final int index) {
-            return mViewTypes[index];
-        }
-    }
 }
