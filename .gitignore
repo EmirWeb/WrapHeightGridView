@@ -29,5 +29,4 @@ MTV/lint.xml
 *.orig
 
 
-MTV/res/values/com_crashlytics_export_strings.xml
-MTV/project.properties
+gen-external-apklibs/
