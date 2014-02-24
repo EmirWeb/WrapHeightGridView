@@ -96,7 +96,6 @@ public class WrapHeightGridViewAdapterTypesTest {
         }
 
         return visibleCount;
-
     }
 
     final ViewGroup mViewGroup = new ViewGroup(Robolectric.getShadowApplication().getApplicationContext()) {
@@ -124,7 +123,7 @@ public class WrapHeightGridViewAdapterTypesTest {
     }
 
     @Test
-    public void getViewWithOneRow() {
+      public void getViewWithOneRow() {
         final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
         final Adapter adapter = new RowAdapter(4);
         wrapHeightGridViewAdapter.setAdapter(adapter);
@@ -152,7 +151,62 @@ public class WrapHeightGridViewAdapterTypesTest {
         type = (Integer) child.getTag();
         assertThat(type).isEqualTo(0);
         assertThat(child).isInstanceOf(TextView.class);
+    }
+
+    @Test
+    public void getViewTypeCount() {
+        final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
+        final Adapter adapter = new RowAdapter(4);
+        wrapHeightGridViewAdapter.setAdapter(adapter);
+        wrapHeightGridViewAdapter.setColumns(5);
+
+        final int typeCount =  wrapHeightGridViewAdapter.getViewTypeCount();
+        assertThat(typeCount).isEqualTo(1024);
+    }
+
+    @Test
+    public void getEmptyAdapter() {
+        final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
+
+        final int typeCount =  wrapHeightGridViewAdapter.getViewTypeCount();
+        assertThat(typeCount).isEqualTo(1);
 
     }
+
+
+    @Test
+    public void getFirstFullRowTypeTest() {
+        final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
+        final Adapter adapter = new RowAdapter(5);
+        wrapHeightGridViewAdapter.setAdapter(adapter);
+        wrapHeightGridViewAdapter.setColumns(5);
+
+        final int type = wrapHeightGridViewAdapter.getItemViewType(0);
+        assertThat(type).isEqualTo(292);
+
+    }
+
+    @Test
+    public void getSecondFullRowTypeTest() {
+        final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
+        final Adapter adapter = new RowAdapter(15);
+        wrapHeightGridViewAdapter.setAdapter(adapter);
+        wrapHeightGridViewAdapter.setColumns(5);
+
+        final int type = wrapHeightGridViewAdapter.getItemViewType(1);
+        assertThat(type).isEqualTo(146);
+    }
+
+    @Test
+    public void getFirstNonFullRowTypeTest() {
+        final WrapHeightGridViewAdapter wrapHeightGridViewAdapter = new WrapHeightGridViewAdapter();
+        final Adapter adapter = new RowAdapter(3);
+        wrapHeightGridViewAdapter.setAdapter(adapter);
+        wrapHeightGridViewAdapter.setColumns(5);
+
+        final int type = wrapHeightGridViewAdapter.getItemViewType(0);
+        assertThat(type).isEqualTo(996);
+    }
+
 
 }

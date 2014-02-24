@@ -1,12 +1,13 @@
 package com.WrapHeightGridView;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+
 
 /**
  * Created by Emir Hasanbegovic on 2014-01-31.
@@ -17,6 +18,17 @@ public class WrapHeightGridViewAdapter extends BaseAdapter {
 
     private Adapter mAdapter;
     private int mColumns = DEFAULT_COLUMN_COUNT;
+    private final WrapHeightGridViewOnClickListener mWrapHeightGridViewOnClickListener;
+
+    public WrapHeightGridViewAdapter() {
+        super();
+        mWrapHeightGridViewOnClickListener = null;
+    }
+
+    public WrapHeightGridViewAdapter(final WrapHeightGridViewOnClickListener wrapHeightGridViewOnClickListener) {
+        super();
+        mWrapHeightGridViewOnClickListener = wrapHeightGridViewOnClickListener;
+    }
 
     public void setAdapter(final Adapter adapter) {
         mAdapter = adapter;
@@ -120,28 +132,47 @@ public class WrapHeightGridViewAdapter extends BaseAdapter {
 
         for (int index = 0; index + convertedPosition < count && index < mColumns; index++) {
             final int viewPosition = convertedPosition + index;
+            final long viewId = mAdapter.getItemId(viewPosition);
 
             if (isRecycled) {
                 final View child = linearLayout.getChildAt(index);
                 final View convertedView = mAdapter.getView(viewPosition, child, viewGroup);
+                setChildOnClickListener(convertedView, viewPosition, viewId);
                 if (convertedView != view) {
+                    view.setOnClickListener(null);
                     linearLayout.removeViewAt(index);
                     linearLayout.addView(convertedView, index);
                 }
             } else {
                 final View convertedView = mAdapter.getView(viewPosition, null, viewGroup);
-                convertedView.setVisibility(View.VISIBLE);
+                setChildOnClickListener(convertedView, viewPosition, viewId);
                 linearLayout.addView(convertedView, index);
             }
         }
 
+
         return linearLayout;
+    }
+
+    private void setChildOnClickListener(final View view, final int position, final long id) {
+        final WrapHeightGridViewOnClickListener wrapHeightGridViewOnClickListener = mWrapHeightGridViewOnClickListener;
+        if (wrapHeightGridViewOnClickListener == null){
+            return;
+        }
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                wrapHeightGridViewOnClickListener.onItemClick(view, position, id);
+            }
+        });
     }
 
     private LinearLayout getLinearLayout(final View view, final Context context) {
         if (view == null) {
-            final LayoutInflater layoutInflater = LayoutInflater.from(context);
-            final LinearLayout linearLayout = (LinearLayout) layoutInflater.inflate(R.layout.list_item_row, null);
+            final LinearLayout linearLayout = new LinearLayout(context);
+            final AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT);
+            linearLayout.setLayoutParams(layoutParams);
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
             return linearLayout;
         }
 
