@@ -6,6 +6,28 @@
     <artifactId>WrapHeightGridView</artifactId>
     <version>0.0.2</version>
     <packaging>apklib</packaging>
+    <name>Wrap Height Grid View</name>
+    <description>This library emulates the Android GridView class but allows the heights of the rows to be as tall as the tallest item.</description>
+    <url>http://www.emirweb.com</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <url>http://svn.apache.org/viewcvs.cgi/maven</url>
+        <connection>http://svn.apache.org/viewcvs.cgi/maven</connection>
+    </scm>
+    <developers>
+        <developer>
+            <id>phigammemir</id>
+            <name>Emir Hasanbegovic</name>
+            <email>emir@emirweb.com</email>
+        </developer>
+    </developers>
+
 
     <repositories>
         <repository>
